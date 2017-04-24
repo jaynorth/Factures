@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FactIDECModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FactIDECModelStoreContainer">
+    <EntitySet Name="Articles" EntityType="FactIDECModel.Store.Articles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Clients" EntityType="FactIDECModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Factures" EntityType="FactIDECModel.Store.Factures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LigneFactures" EntityType="FactIDECModel.Store.LigneFactures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Utilisateurs" EntityType="FactIDECModel.Store.Utilisateurs" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_LigneFacture_Article" Association="FactIDECModel.Store.FK_LigneFacture_Article">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="LigneFacture" EntitySet="LigneFactures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Facture_Client" Association="FactIDECModel.Store.FK_Facture_Client">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Facture" EntitySet="Factures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LigneFacture_Client" Association="FactIDECModel.Store.FK_LigneFacture_Client">
+      <End Role="Facture" EntitySet="Factures" />
+      <End Role="LigneFacture" EntitySet="LigneFactures" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Prix" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Num" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Prenom" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="DateNaissance" Type="datetime" Nullable="false" />
+    <Property Name="Rue" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Npa" Type="int" Nullable="false" />
+    <Property Name="Localite" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Factures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Numero" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="DateFacture" Type="datetime" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LigneFactures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArticleId" Type="int" Nullable="true" />
+    <Property Name="FactureId" Type="int" Nullable="true" />
+    <Property Name="Quantite" Type="int" Nullable="false" />
+    <Property Name="Montant" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Utilisateurs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Utilisateur1" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="MotDePasse" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_LigneFacture_Article">
+    <End Role="Article" Type="FactIDECModel.Store.Articles" Multiplicity="0..1" />
+    <End Role="LigneFacture" Type="FactIDECModel.Store.LigneFactures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LigneFacture">
+        <PropertyRef Name="ArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Facture_Client">
+    <End Role="Client" Type="FactIDECModel.Store.Clients" Multiplicity="1" />
+    <End Role="Facture" Type="FactIDECModel.Store.Factures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Facture">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LigneFacture_Client">
+    <End Role="Facture" Type="FactIDECModel.Store.Factures" Multiplicity="0..1" />
+    <End Role="LigneFacture" Type="FactIDECModel.Store.LigneFactures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facture">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LigneFacture">
+        <PropertyRef Name="FactureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FactIDECModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prix" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="LigneFactures" Relationship="Self.FK_LigneFacture_Article" FromRole="Article" ToRole="LigneFacture" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateNaissance" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Rue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Npa" Type="Int32" Nullable="false" />
+          <Property Name="Localite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Factures" Relationship="Self.FK_Facture_Client" FromRole="Client" ToRole="Facture" />
+        </EntityType>
+        <EntityType Name="Facture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateFacture" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Facture_Client" FromRole="Facture" ToRole="Client" />
+          <NavigationProperty Name="LigneFactures" Relationship="Self.FK_LigneFacture_Client" FromRole="Facture" ToRole="LigneFacture" />
+        </EntityType>
+        <EntityType Name="LigneFacture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleId" Type="Int32" />
+          <Property Name="FactureId" Type="Int32" />
+          <Property Name="Quantite" Type="Int32" Nullable="false" />
+          <Property Name="Montant" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="Self.FK_LigneFacture_Article" FromRole="LigneFacture" ToRole="Article" />
+          <NavigationProperty Name="Facture" Relationship="Self.FK_LigneFacture_Client" FromRole="LigneFacture" ToRole="Facture" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Utilisateur1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MotDePasse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_LigneFacture_Article">
+          <End Role="Article" Type="Self.Article" Multiplicity="0..1" />
+          <End Role="LigneFacture" Type="Self.LigneFacture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LigneFacture">
+              <PropertyRef Name="ArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Facture_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Facture" Type="Self.Facture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Facture">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LigneFacture_Client">
+          <End Role="Facture" Type="Self.Facture" Multiplicity="0..1" />
+          <End Role="LigneFacture" Type="Self.LigneFacture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LigneFacture">
+              <PropertyRef Name="FactureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FactIDECEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articles" EntityType="Self.Article" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Factures" EntityType="Self.Facture" />
+          <EntitySet Name="LigneFactures" EntityType="Self.LigneFacture" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+          <AssociationSet Name="FK_LigneFacture_Article" Association="Self.FK_LigneFacture_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="LigneFacture" EntitySet="LigneFactures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Facture_Client" Association="Self.FK_Facture_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Facture" EntitySet="Factures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LigneFacture_Client" Association="Self.FK_LigneFacture_Client">
+            <End Role="Facture" EntitySet="Factures" />
+            <End Role="LigneFacture" EntitySet="LigneFactures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FactIDECModelStoreContainer" CdmEntityContainer="FactIDECEntities">
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="IsTypeOf(FactIDECModel.Article)">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="Num" ColumnName="Num" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="IsTypeOf(FactIDECModel.Client)">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
+          <ScalarProperty Name="Rue" ColumnName="Rue" />
+          <ScalarProperty Name="Npa" ColumnName="Npa" />
+          <ScalarProperty Name="Localite" ColumnName="Localite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Factures">
+      <EntityTypeMapping TypeName="IsTypeOf(FactIDECModel.Facture)">
+        <MappingFragment StoreEntitySet="Factures">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="DateFacture" ColumnName="DateFacture" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LigneFactures">
+      <EntityTypeMapping TypeName="IsTypeOf(FactIDECModel.LigneFacture)">
+        <MappingFragment StoreEntitySet="LigneFactures">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+          <ScalarProperty Name="FactureId" ColumnName="FactureId" />
+          <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+          <ScalarProperty Name="Montant" ColumnName="Montant" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateurs">
+      <EntityTypeMapping TypeName="IsTypeOf(FactIDECModel.Utilisateur)">
+        <MappingFragment StoreEntitySet="Utilisateurs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Utilisateur1" ColumnName="Utilisateur1" />
+          <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

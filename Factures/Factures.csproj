@@ -34,6 +34,79 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="ModelFactIDEC.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelFactIDEC.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelFactIDEC.edmx.diagram">
+      <DependentUpon>ModelFactIDEC.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Article.cs">
+      <DependentUpon>ModelFactIDEC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Client.cs">
+      <DependentUpon>ModelFactIDEC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Facture.cs">
+      <DependentUpon>ModelFactIDEC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LigneFacture.cs">
+      <DependentUpon>ModelFactIDEC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFactIDEC.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFactIDEC.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFactIDEC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFactIDEC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFactIDEC.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFactIDEC.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Utilisateur.cs">
+      <DependentUpon>ModelFactIDEC.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModelFactIDEC.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelFactIDEC.Context.cs</LastGenOutput>
+      <DependentUpon>ModelFactIDEC.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelFactIDEC.edmx.sql" />
+    <Content Include="ModelFactIDEC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelFactIDEC.edmx</DependentUpon>
+      <LastGenOutput>ModelFactIDEC.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
