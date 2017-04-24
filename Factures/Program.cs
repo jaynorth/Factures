@@ -10,29 +10,44 @@ namespace Factures
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("test");
-
-            Console.ReadKey();
-
-            Client cl = new Client
+                   
+              Client cl = new Client
             {
-                Id = 3,
-                Nom = "Rochat",
-                Prenom = "Roger",
+                
+                Nom = "ZUFFERES",
+                Prenom = "Jean",
                 DateNaissance = DateTime.Now,
                 Rue = "hjkvadhkjghkjadhg",
                 Npa = 1234,
-                Localite = "Pully"
+                Localite = "Lausanne"
             }
             ;
+
+           
+
 
             using (FactIDECEntities context = new FactIDECEntities())
             {
                 context.Database.Log = Console.WriteLine;
-                context.Clients.Add(cl);
-                context.SaveChanges();
-                
+                //context.Clients.Add(cl);
+                //context.SaveChanges();
+
+                List<Client> listeClients = new List<Client>(context.Clients);
+
+            foreach(Client c in listeClients)
+                {
+                    Console.WriteLine(c.Nom);
+                }
+
+
+
             };
+
+            
+
+            
+
+            Console.ReadKey();
         }
     }
 }
