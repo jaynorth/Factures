@@ -28,16 +28,20 @@ namespace Factures
 
             using (FactIDECEntities context = new FactIDECEntities())
             {
-                context.Database.Log = Console.WriteLine;
+                context.Database.Log = Console.WriteLine; // log des étapes db
                 //context.Clients.Add(cl);
                 //context.SaveChanges();
 
                 List<Client> listeClients = new List<Client>(context.Clients);
 
             foreach(Client c in listeClients)
-                {
+            {
                     Console.WriteLine(c.Nom);
-                }
+                    foreach (Facture f in c.Factures)
+                    {
+                        Console.WriteLine(f.Numero); 
+                    }
+             }
 
 
 
